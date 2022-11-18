@@ -15,6 +15,16 @@ async function getTickets(id: number) {
   return tickets;
 }
 
+async function postNewTicket(ticketTypeId: number, enrollmentId: number) {
+  const newTicket = await ticketsRepository.insertTicket(ticketTypeId, enrollmentId);
+  return newTicket;
+}
+
+async function  getEnrollmentId(userId: number) {
+  const enrollment = await ticketsRepository.getEnrollmentId(userId);
+  if (!enrollment) throw notFoundError();
+  return enrollment.id;
+}
 export type TicketType = {
   id: number,
   name: string,
@@ -26,6 +36,6 @@ export type TicketType = {
 }
 
 const ticketsService = {
-  getTypes, getTickets
+  getTypes, getTickets, postNewTicket, getEnrollmentId
 };
 export default ticketsService;
