@@ -1,11 +1,18 @@
 import ticketsRepository from "@/repositories/tickets-repository";
-
+import { notFoundError } from "@/errors";
 async function getTypes(): Promise<TicketType[]> {
   const types = await ticketsRepository.getTypes();
   if(!types) {
     return [];
   }
   return types;
+}
+
+async function getTickets(id: number) {
+  const tickets = await ticketsRepository.getTickets(id);
+  if (!tickets) throw notFoundError();
+
+  return tickets;
 }
 
 export type TicketType = {
@@ -19,6 +26,6 @@ export type TicketType = {
 }
 
 const ticketsService = {
-  getTypes
+  getTypes, getTickets
 };
 export default ticketsService;
