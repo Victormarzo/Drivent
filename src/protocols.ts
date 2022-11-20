@@ -54,3 +54,5 @@ export type PaymentSucess = {
   createdAt: Date,
   updatedAt: Date,
 };
+
+export type NewPayment=Omit<PaymentSucess, "createdAt" |"id" |"updatedAt">
